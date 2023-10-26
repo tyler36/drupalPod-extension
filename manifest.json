@@ -1,0 +1,26 @@
+{
+   "background": {
+      "persistent": false,
+      "scripts": [ "scripts/background.js" ]
+   },
+   "browser_action": {
+      "default_icon": "icons/DrupalPod-128x128.png",
+      "default_popup": "popup.html",
+      "default_title": "DrupalPod"
+   },
+   "description": "This extension sets up a development environment for Drupal contributions.",
+   "homepage_url": "https://www.drupalpod.com",
+   "icons": {
+      "128": "icons/DrupalPod-128x128.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsc4Q7ZeME93l5ZzWnL59DdLEKDG//Mx2Waeq7mQPFPgM68PkU5B6UNXf2u/TsixJEwfoljAWCVQtwDqRKRzAFYy5drF+np9dSn2Bz5HDgujlD4m2sWl65Mi1OmDrX7yizf/UI8Kbc4+5GibA5Up2SJTZCXy10AkXx1tViAwztne44Trs7wfIHytTNzXOv+nJIAhnqVO0AWGzsJdHnEWt1V8LngrdVgfXkySixemeiIv8oNj6N6gULjAf3g0HLWgKRd4Zcw1YE2Rc9XCFsRPyY+ZVx6ygAz4Y4YCIyIFEkowOzJZUkAgXV5mDAhW9/1IiM3H9X2094HscLFrDI63aLwIDAQAB",
+   "manifest_version": 2,
+   "name": "DrupalPod helper extension",
+   "options_ui": {
+      "open_in_tab": false,
+      "page": "options.html"
+   },
+   "permissions": [ "activeTab", "storage" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0.7"
+}
