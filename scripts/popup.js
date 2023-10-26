@@ -3,7 +3,7 @@ const defaultProfile = 'standard';
 
 document.addEventListener('DOMContentLoaded', function() {
     // Removed because we use only a specific main repo.
-    // getDrupalPodRepo();
+    getDrupalPodRepo();
 
     // Check current URL to activate extension only on relevant pages
     chrome.tabs.query({active: true, currentWindow: true}, tabs => {
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Build URL structure to open Gitpod
 
         const baseUrl = 'https://gitpod.io/#';
-        const envRepo = 'https://github.com/shaal/drupalpod';
+        const envRepo = document.getElementById('devdrupalpod').innerText;
         const projectName = 'DP_PROJECT_NAME=' + document.getElementById('project-name').innerText;
         const issueFork = 'DP_ISSUE_FORK=' + (document.getElementById('issue-fork').innerText === 'false' ? '' : document.getElementById('issue-fork').innerText);
         const issueBranch = 'DP_ISSUE_BRANCH=' + encodeURIComponent(getSelectValue('issue-branch'));
