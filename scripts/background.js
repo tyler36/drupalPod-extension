@@ -1,4 +1,6 @@
-// Array of supported Drupal Core values.
+/**
+ * Array of supported Drupal Core values.
+ */
 const optionsDrupalCoreVersion = [
   '9.5.9',
   '9.5.x',
@@ -14,16 +16,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     (async function responding() {
       sendResponse({message: await getDrupalPodRepo()});
     })();
-  } else if (request.message === 'set-drupalpod-repo') {
-    setDrupalPodRepo(request.url);
-    sendResponse({message: 'great success'});
-  } else if (request.message === 'get-drupal-core-version-options') {
+  }
+  
+  if (request.message === 'set-drupalpod-repo') {
+      setDrupalPodRepo(request.url);
+      sendResponse({message: 'great success'});
+  }
+
+  if (request.message === 'get-drupal-core-version-options') {
     sendResponse({options: optionsDrupalCoreVersion});
-  } else if (request.message === 'fetch-drupal-core-version') {
+  }
+
+  if (request.message === 'fetch-drupal-core-version') {
     (async function responding() {
       sendResponse({message: await getDrupalCoreVersion()});
     })();
-  } else if (request.message === 'set-drupal-core-version') {
+  }
+
+  if (request.message === 'set-drupal-core-version') {
     setDrupalCoreVersion(request.core);
     sendResponse({message: 'great success'});
   }
@@ -32,31 +42,55 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 async function getDrupalPodRepo() {
-  var p = new Promise((resolve, reject) => {
-    chrome.storage.sync.get(['drupalpod_repo'], (options) => {
-      resolve(options.drupalpod_repo);
-    });
-  });
-
-  return await p;
+  return getOptionFromStorage('drupalpod_repo');
 }
 
 async function getDrupalCoreVersion() {
+  return getOptionFromStorage('drupal_core_version');
+}
+
+/**
+ * Get the option 'name' from Chrome storage.
+ *
+ * @param string name
+ * @returns
+ */
+async function getOptionFromStorage(name) {
   var p = new Promise((resolve, reject) => {
-    chrome.storage.sync.get(['drupal_core_version'], (options) => {
-      resolve(options.drupal_core_version);
+    chrome.storage.sync.get([name], (options) => {
+      resolve(options[name]);
     });
   });
 
   return await p;
 }
 
+/**
+ * Set the default DrupalPod repo.
+ * This generally will not need changing.
+ *
+ * @param string url
+ */
 function setDrupalPodRepo(url) {
-  chrome.storage.sync.set({drupalpod_repo: url});
+  setOptions({drupalpod_repo: url});
 }
+
+/**
+ * Set the default Drupal Core version.
+ *
+ * @param string core
+ */
 function setDrupalCoreVersion(core) {
-  chrome.storage.sync.set({drupal_core_version: core});
+  setOptions({drupal_core_version: core});
 }
+
+/**
+ * Helper function to save settings.
+ * @param object options
+ */
+function setOptions(options) {
+  chrome.storage.sync.set(options);
+};
 
 // set default
 setDrupalPodRepo('https://github.com/shaal/drupalpod');
