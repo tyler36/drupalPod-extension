@@ -39,12 +39,13 @@ test("it sets drupalPod repo options", async () => {
   // Save value
   let input = await page.$('#drupalpod-repo');
   await input.click({ clickCount: 3 });
-  await input.type('my-drupalpod-repo');
+  await input.type('https://github.com/shaal/update-repo');
   await page.click('button[type="submit"]');
 
   // ASSERT value matches
+  await page.goto(`chrome-extension://${EXTENSION_ID}/options.html`);
   let value = await page.$eval(selectorDrupalPodRepo, (input) => input.value);
-  expect(value).toEqual('my-drupalpod-repo');
+  expect(value).toEqual('https://github.com/shaal/update-repo');
 });
 
 test("it contains drupal core options", async () => {
@@ -88,6 +89,7 @@ test("it sets drupal core options", async () => {
   await page.click('button[type="submit"]');
 
   // ASSERT value matches
+  await page.goto(`chrome-extension://${EXTENSION_ID}/options.html`);
   await page.waitForSelector(selectorDrupalCore + " option");
   selectedOption = await page.evaluate(() => {
     let select = document.getElementById("drupal-core");
