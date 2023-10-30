@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const moduleVersion = document.querySelector('.field-name-field-issue-version').children[1].innerText.replace('-dev','');
             const loggedIn = document.querySelector('.person') ? true : false;
-            const pushAccess = document.querySelector('.push-access') ? true : false;
+            const pushAccess = document.querySelector('.drupalorg-issue-fork-access') ? true : false;
 
             return {
                 success: true,
@@ -192,6 +192,7 @@ function getPatchesFromLinks(linksArray) {
 }
 
 function displayWarning(className) {
+    document.getElementById('warnings').classList.remove('hidden');
     // Reveal error message
     const warningMessageElement = document.querySelector('.' + className);
     warningMessageElement.classList.remove('hidden');
