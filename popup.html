@@ -1,68 +1,72 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DrupalPod</title>
-  <script src="scripts/popup.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/popup.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrupalPod</title>
+    <script src="scripts/popup.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+  </head>
 
-<body>
-  <div class="container">
-    <div class="page-header">
-      <h2>DrupalPod <img class="logo" src="icons/DrupalPod-128.png" alt="DrupalPod Logo"></h2>
-      <p class="reading-page-status">
-        Please wait...
-      </p>
-    </div>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h2>DrupalPod
+          <img class="logo" src="icons/DrupalPod-128.png" alt="DrupalPod Logo"></h2>
+        <p class="reading-page-status">
+          Please wait...
+        </p>
+      </div>
 
-    <div class="project-info">
-      <span>Project name:</span> <span id="project-name"></span>
-      <span>Project type:</span> <span id="project-type"></span>
-      <span>Module Version:</span> <span id="module-version"></span>
-      <span>Issue fork:</span> <span id="issue-fork"></span>
-    </div>
+      <div class="project-info">
+        <span>Project name:</span>
+        <span id="project-name"></span>
+        <span>Project type:</span>
+        <span id="project-type"></span>
+        <span>Module Version:</span>
+        <span id="module-version"></span>
+        <span>Issue fork:</span>
+        <span id="issue-fork"></span>
+      </div>
 
-    <div id="warnings" class="warnings hidden" role="alert">
-      <p class="something-went-wrong-instructions hidden">
-        Something went wrong, please report the error.
-      </p>
-      <p class="not-issue-page-instructions hidden">
-        Open an issue page on Drupal.org to see the available options.
-      </p>
-      <p class="not-logged-in-instructions hidden">
-        Please log in to Drupal.org.
-      </p>
-      <p class="no-issue-fork-instructions hidden">
-        Please click on the "Create issue fork" green button on this issue page.
-      </p>
-      <p class="no-push-access-instructions hidden">
-        Please click on the "Get push access" green button on this issue page.
-      </p>
-    </div>
+      <div id="warnings" class="warnings hidden" role="alert">
+        <p class="something-went-wrong-instructions hidden">
+          Something went wrong, please report the error.
+        </p>
+        <p class="not-issue-page-instructions hidden">
+          Open an issue page on Drupal.org to see the available options.
+        </p>
+        <p class="not-logged-in-instructions hidden">
+          Please log in to Drupal.org.
+        </p>
+        <p class="no-issue-fork-instructions hidden">
+          Please click on the "Create issue fork" green button on this issue page.
+        </p>
+        <p class="no-push-access-instructions hidden">
+          Please click on the "Get push access" green button on this issue page.
+        </p>
+      </div>
 
-    <form class="form-selection hidden grid" id="form-selection" aria-live="polite">
-      <span>DrupalPod repo:</span> <span id="devdrupalpod"></span>
-      <label for="core-version">Drupal core version:</label>
-      <select name="core-version" id="core-version">
-      </select>
-      <label for="install-profile">Install profile:</label>
-      <select name="install-profile" id="install-profile">
-      </select>
-      <label for="issue-branch">Branch:</label>
-      <select name="issue-branch" id="issue-branch">
-      </select>
-      <label for="available-patches">Choose a patch:</label>
-      <select name="available-patches" id="available-patches">
-      </select>
-      <button id="submit" type="submit">
-        Open Dev Env
-      </button>
-      <form />
-  </div>
-</body>
-
+      <form class="form-selection hidden grid" id="form-selection" aria-live="polite">
+        <span>DrupalPod repo:</span>
+        <span id="devdrupalpod"></span>
+        <label for="core-version">Drupal core version:</label>
+        <select name="core-version" id="core-version"></select>
+        <label for="install-profile">Install profile:</label>
+        <select name="install-profile" id="install-profile"></select>
+        <label for="issue-branch">Branch:</label>
+        <select name="issue-branch" id="issue-branch"></select>
+        <label for="available-patches">Choose a patch:</label>
+        <select name="available-patches" id="available-patches"></select>
+        <div class="buttons">
+          <button id="submit" type="submit">
+            Open Dev Env
+          </button>
+        </div>
+        <form/>
+      </div>
+    </body>
+  </body>
 </html>
