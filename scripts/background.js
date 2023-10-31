@@ -10,6 +10,7 @@ const optionsDrupalCoreVersion = [
   '11.x',
 ];
 const defaultDrupalCoreVersion = '10.1.x';
+const defaultDrupalProfile = 'standard';
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.message === 'fetch-drupalpod-repo') {
@@ -17,10 +18,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sendResponse({message: await getDrupalPodRepo()});
     })();
   }
-  
+
   if (request.message === 'set-drupalpod-repo') {
-      setDrupalPodRepo(request.url);
-      sendResponse({message: 'great success'});
+    setDrupalPodRepo(request.url);
+    sendResponse({message: 'great success'});
   }
 
   if (request.message === 'get-drupal-core-version-options') {
@@ -38,6 +39,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     sendResponse({message: 'great success'});
   }
 
+  if (request.message === 'fetch-drupal-profile') {
+    (async function responding() {
+      sendResponse({message: await getDrupalProfile()});
+    })();
+  }
+
+  if (request.message === 'set-drupal-profile') {
+    setDrupalProfile(request.profile);
+    sendResponse({message: 'great success'});
+  }
+
   return true;
 });
 
@@ -47,6 +59,10 @@ async function getDrupalPodRepo() {
 
 async function getDrupalCoreVersion() {
   return getOptionFromStorage('drupal_core_version');
+}
+
+async function getDrupalProfile() {
+  return getOptionFromStorage('drupal_profile');
 }
 
 /**
@@ -85,6 +101,16 @@ function setDrupalCoreVersion(core) {
 }
 
 /**
+ * Set the default Drupal profile.
+ * This generally will not need changing.
+ *
+ * @param string url
+ */
+function setDrupalProfile(profile) {
+  setOptions({drupal_profile: profile});
+}
+
+/**
  * Helper function to save settings.
  * @param object options
  */
@@ -95,3 +121,4 @@ function setOptions(options) {
 // set default
 setDrupalPodRepo('https://github.com/shaal/drupalpod');
 setDrupalCoreVersion(defaultDrupalCoreVersion);
+setDrupalProfile(defaultDrupalProfile);

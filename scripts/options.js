@@ -55,12 +55,31 @@ function setDrupalCoreVersion(core) {
   );
 }
 
+function getDrupalProfile() {
+  const drupal_profile = document.querySelector('#drupal-profile');
+  chrome.runtime.sendMessage({message: 'fetch-drupal-profile'}, (response) => {
+    if (response.message) {
+      drupal_profile.value = response.message;
+    }
+  });
+}
+
+function setDrupalProfile(profile) {
+  chrome.runtime.sendMessage(
+    {message: 'set-drupal-profile', profile: profile},
+    (response) => {
+      return response.message;
+    },
+  );
+}
+
 // Initiate display form
 document.addEventListener('DOMContentLoaded', () => {
   // Read initial value from storage
   getDrupalPodRepo();
   buildDrupalCoreOptions();
   getDrupalCoreVersion();
+  getDrupalProfile();
 
   document.getElementById('form').addEventListener('submit', () => {
     const drupalpod_repo_input = document.querySelector('#drupalpod-repo');
@@ -71,6 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const drupal_core_version = document.querySelector('#drupal-core');
     const core = drupal_core_version.value;
     setDrupalCoreVersion(core);
+
+    const drupal_profile = document.querySelector('#drupal-profile');
+    const profile = drupal_profile.value;
+    setDrupalProfile(profile);
 
     document.getElementById('form-status').innerText = 'Value saved';
   });

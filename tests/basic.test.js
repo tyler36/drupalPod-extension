@@ -98,3 +98,34 @@ test("it sets drupal core options", async () => {
   });
   expect(selectedOption).toEqual("11.x");
 });
+
+test('it sets profile options', async () => {
+  const page = await browser.newPage();
+  await page.goto(`chrome-extension://${EXTENSION_ID}/options.html`);
+
+  let selectorProfile = '#drupal-profile';
+
+  // ASSERT default
+  await page.waitForSelector(selectorProfile + ' option');
+  selectedOption = await page.evaluate(() => {
+    let select = document.getElementById('drupal-profile');
+    let selected = select.options[select.selectedIndex];
+    return selected.value;
+  });
+  expect(selectedOption).toEqual('standard');
+
+  // Save value
+  let input = await page.$(selectorProfile);
+  await input.select(selectorProfile, 'demo_umami');
+  await page.click('button[type="submit"]');
+
+  // ASSERT value matches
+  await page.goto(`chrome-extension://${EXTENSION_ID}/options.html`);
+  await page.waitForSelector(selectorProfile + ' option');
+  selectedOption = await page.evaluate(() => {
+    let select = document.getElementById('drupal-profile');
+    let selected = select.options[select.selectedIndex];
+    return selected.value;
+  });
+  expect(selectedOption).toEqual('demo_umami');
+});
