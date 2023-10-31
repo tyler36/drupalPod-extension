@@ -1,5 +1,3 @@
-const defaultProfile = 'standard';
-
 document.addEventListener('DOMContentLoaded', function () {
   getDrupalPodRepo();
 
@@ -123,13 +121,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const moduleVersionStatus = document.getElementById('module-version');
     moduleVersionStatus.innerHTML = pageResults.moduleVersion;
 
-    // const drupalInstallProfiles = ['(none)', 'standard', 'demo_umami', 'minimal'];
-    const drupalInstallProfiles = [];
     const availablePatchesArray = getPatchesFromLinks(pageResults.allHrefs);
 
-    populateSelectList('issue-branch', pageResults.issueBranches);
     populateDrupalCoreVersion();
-    populateSelectList('install-profile', drupalInstallProfiles);
+    populateDrupalProfile();
+    populateSelectList('issue-branch', pageResults.issueBranches);
     populateSelectList('available-patches', availablePatchesArray);
 
     // Display form
@@ -264,6 +260,18 @@ async function populateDrupalCoreVersion() {
     (response) => {
       if (response.options) {
         populateSelectList('core-version', response.options, response.default);
+      }
+    },
+  );
+}
+
+
+async function populateDrupalProfile(){
+  chrome.runtime.sendMessage(
+    {message: 'get-drupal-profile-options'},
+    (response) => {
+      if (response.options) {
+        populateSelectList('install-profile', response.options, response.default);
       }
     },
   );

@@ -34,6 +34,24 @@ function buildDrupalCoreOptions() {
   );
 }
 
+function buildDrupalProfileOptions() {
+  const drupal_profile = document.querySelector('#drupal-profile');
+
+  const options = chrome.runtime.sendMessage(
+    {message: 'get-drupal-profile-options'},
+    (response) => {
+      response.options.forEach((option) => {
+        const optionElement = document.createElement('option');
+        optionElement.value = (option == '(none)')
+          ? ''
+          : option;
+        optionElement.textContent = option;
+        drupal_profile.appendChild(optionElement);
+      });
+    },
+  );
+}
+
 function getDrupalCoreVersion() {
   const drupal_core = document.querySelector('#drupal-core');
   chrome.runtime.sendMessage(
@@ -78,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Read initial value from storage
   getDrupalPodRepo();
   buildDrupalCoreOptions();
+  buildDrupalProfileOptions();
   getDrupalCoreVersion();
   getDrupalProfile();
 
