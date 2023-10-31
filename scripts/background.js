@@ -9,6 +9,8 @@ const optionsDrupalCoreVersion = [
   '10.1.x',
   '11.x',
 ];
+const optionsDrupalProfile = ['(none)', 'standard', 'demo_umami', 'minimal'];
+
 const defaultDrupalCoreVersion = '10.1.x';
 const defaultDrupalProfile = 'standard';
 
@@ -25,7 +27,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 
   if (request.message === 'get-drupal-core-version-options') {
-    sendResponse({options: optionsDrupalCoreVersion});
+    (async function responding() {
+      let defaultDrupalCore = await getDrupalCoreVersion();
+      sendResponse({
+        options: optionsDrupalCoreVersion,
+        default: defaultDrupalCore,
+      });
+    })();
   }
 
   if (request.message === 'fetch-drupal-core-version') {
@@ -45,6 +53,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     })();
   }
 
+  if (request.message === 'get-drupal-profile-options') {
+    (async function responding() {
+      let defaultDrupalProfile = await getDrupalProfile();
+      sendResponse({
+        options: optionsDrupalProfile,
+        default: defaultDrupalProfile,
+      });
+    })();
+  }
   if (request.message === 'set-drupal-profile') {
     setDrupalProfile(request.profile);
     sendResponse({message: 'great success'});
