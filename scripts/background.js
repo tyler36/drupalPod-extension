@@ -25,7 +25,13 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 
   if (request.message === 'get-drupal-core-version-options') {
-    sendResponse({options: optionsDrupalCoreVersion});
+    (async function responding() {
+      let defaultDrupalCore = await getDrupalCoreVersion();
+      sendResponse({
+        options: optionsDrupalCoreVersion,
+        default: defaultDrupalCore,
+      });
+    })();
   }
 
   if (request.message === 'fetch-drupal-core-version') {
