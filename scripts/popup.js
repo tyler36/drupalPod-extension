@@ -2,7 +2,6 @@ const defaultDrupalCore = '10.0.x';
 const defaultProfile = 'standard';
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Removed because we use only a specific main repo.
     getDrupalPodRepo();
 
     // Check current URL to activate extension only on relevant pages
