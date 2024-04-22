@@ -7,6 +7,8 @@ const optionsDrupalCoreVersion = [
   '10.0.9',
   '10.0.x',
   '10.1.x',
+  '10.2.x',
+  '10.3.x',
   '11.x',
 ];
 const optionsDrupalProfile = ['(none)', 'standard', 'demo_umami', 'minimal'];
