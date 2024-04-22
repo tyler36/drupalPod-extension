@@ -2,11 +2,12 @@
  * Array of supported Drupal Core values.
  */
 const optionsDrupalCoreVersion = [
-  '9.5.9',
-  '9.5.x',
-  '10.0.9',
-  '10.0.x',
-  '10.1.x',
+  '9.5',
+  '10.0',
+  '10.1',
+  '10.2',
+  '10.2.x',
+  '10.3.x',
   '11.x',
 ];
 const optionsDrupalProfile = ['(none)', 'standard', 'demo_umami', 'minimal'];
